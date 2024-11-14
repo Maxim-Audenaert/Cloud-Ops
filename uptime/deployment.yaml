@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  up
+  labels:
+    app:  up
+spec:
+  selector:
+    matchLabels:
+      app: up
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app:  up
+    spec:
+      containers:
+      - name:  up
+        image: louislam/uptime-kuma:latest # Image name from docker hub 
+        ports: 
+        - containerPort: 3001

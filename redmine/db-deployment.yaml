@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  redmine-mysql
+  labels:
+    app:  redmine-mysql
+spec:
+  selector:
+    matchLabels:
+      app: redmine-mysql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app:  redmine-mysql
+    spec:
+      containers:
+      - name:  redmine-mysql
+        image:  mysql:latest # Image name from docker hub 
+        ports: 
+        - containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: "mysecretpassword"
+          - name: MYSQL_DATABASE
+            value: "redmine"
+      volumes: 
+      - name: redmine-mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: redmine-mysql-pv-claim

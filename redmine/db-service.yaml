@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redmine-mysql # Moet dezelfde zijn als in deployment.yaml
+spec:
+  selector:
+    app: redmine-mysql
+  type: ClusterIP
+  ports:
+  - name: redmine-mysql
+    protocol: TCP
+    port: 3306 #listing port 
+    targetPort:  3306 #forwarding port, 80 omdat 80 in deployment.yaml

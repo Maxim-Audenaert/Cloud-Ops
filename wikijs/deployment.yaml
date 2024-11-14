@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  wikijs
+  labels:
+    app:  wikijs
+spec:
+  selector:
+    matchLabels:
+      app: wikijs
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app:  wikijs
+    spec:
+      containers:
+      - name:  wikijs
+        image: requarks/wiki:latest # Image name from docker hub 
+        ports: 
+        - containerPort: 3000
+        env:
+          - name: "DB_TYPE"
+            value: "mysql"
+          - name: "DB_HOST"
+            value: "wikijs-mysql.default.svc.cluster.local"
+          - name: "DB_PORT"
+            value: "3306"
+          - name: "DB_USER"
+            value: "wikijs"
+          - name: "DB_PASS"
+            value: "mysecretpassword"
+          - name: "DB_NAME"
+            value: "wikijs"

@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wordpress-ingress
+  annotations: 
+    cert-manager.io/cluster-issuer: letsencrypt-prod # Nodig voor tls 
+spec:
+  rules:
+  - host: wp.cloudops-17.ucll.cloud
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wordpress
+            port:
+              number: 80
+  tls: # Need to add this for tls 
+  - hosts:
+    - wp.cloudops-17.ucll.cloud
+    secretName: wp-tls # where the certificate will be stored

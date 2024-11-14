@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wikijs # Moet dezelfde zijn als in deployment.yaml
+spec:
+  selector:
+    app: wikijs
+  type: ClusterIP
+  ports:
+  - name: wikijs
+    protocol: TCP
+    port: 80 #listing port 
+    targetPort:  3000 #forwarding port, 3000 omdat 3000 in deployment.yaml
